@@ -1,0 +1,13 @@
+# Core computer vision & ML
+opencv-python
+mediapipe
+numpy
+
+# Desktop control (mouse automation)
+pyautogui
+pynput
+
+# Optional but useful utilities
+matplotlib        # for plotting landmark data during development
+pandas            # for storing landmark datasets (if needed)
+scipy             # smoothing / filtering if required

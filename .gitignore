@@ -1,0 +1,47 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+logs/
+*.log
+
+# Data folders (avoid pushing large raw data)
+data/raw/
+data/processed/
+
+# Models (optional—models can be large)
+model/
+*.onnx
+*.h5
+*.pt
+*.joblib
+*.pkl
+
+# OS-generated
+.DS_Store
+Thumbs.db
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.temp
