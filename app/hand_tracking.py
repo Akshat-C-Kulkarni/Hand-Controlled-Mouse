@@ -3,6 +3,7 @@
 import cv2
 import mediapipe as mp
 import time
+from gesture_detector import detect_gesture
 
 # Initialize MediaPipe
 mp_hands = mp.solutions.hands
@@ -51,6 +52,15 @@ def run_hand_tracking():
                         mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=3),
                         mp_drawing.DrawingSpec(color=(255, 0, 0), thickness=2)
                     )
+            
+            # ------------ Gesture Testing -------------
+            if results.multi_hand_landmarks:
+                hand_landmarks = results.multi_hand_landmarks[0]  # primary hand
+                gesture_result = detect_gesture(hand_landmarks.landmark, None)
+                g = gesture_result["gesture"]
+                data = gesture_result.get("data", {})
+                if gesture_result["gesture"] != "wait":
+                     print("Gesture:", gesture_result["gesture"])
 
             # FPS counter
             c_time = time.time()
@@ -69,7 +79,7 @@ def run_hand_tracking():
             cv2.putText(frame, f'Hands: {count}', (10, 60),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
 
-            cv2.imshow("Hand Tracking - Day 1", frame)
+            cv2.imshow("Hand Gesture Testing - Day 2", frame)
 
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q') or key == 27:
