@@ -4,6 +4,10 @@ import cv2
 import mediapipe as mp
 import time
 from gesture_detector import detect_gesture
+from pynput.mouse import Button, Controller
+from mouse_controller import move_cursor, left_click, right_click, scroll_vertical
+import pyautogui  # for screen size
+prev_scroll_y = None
 
 # Initialize MediaPipe
 mp_hands = mp.solutions.hands
@@ -59,8 +63,39 @@ def run_hand_tracking():
                 gesture_result = detect_gesture(hand_landmarks.landmark, None)
                 g = gesture_result["gesture"]
                 data = gesture_result.get("data", {})
-                if gesture_result["gesture"] != "wait":
-                     print("Gesture:", gesture_result["gesture"])
+                gesture = gesture_result["gesture"]
+                if gesture == "move":
+                    lm = hand_landmarks.landmark[8]
+                    screen_w, screen_h = pyautogui.size()
+                    move_cursor(lm.x, lm.y, screen_w, screen_h)
+
+                elif gesture == "left_click":
+                    left_click()
+
+                elif gesture == "right_click":
+                    right_click()
+
+                elif gesture == "scroll":
+                    lm = hand_landmarks.landmark[8]   # index fingertip
+                    y = lm.y
+
+                    global prev_scroll_y
+                    if prev_scroll_y is None:
+                        prev_scroll_y = y
+
+                    dy = prev_scroll_y - y   # positive: hand moved up → scroll up
+
+                    # Sensitivity multiplier
+                    SCROLL_SENS = 80
+
+                    delta = int(dy * SCROLL_SENS)
+
+                    if delta != 0:
+                        scroll_vertical(delta)
+
+                    prev_scroll_y = y
+
+
 
             # FPS counter
             c_time = time.time()

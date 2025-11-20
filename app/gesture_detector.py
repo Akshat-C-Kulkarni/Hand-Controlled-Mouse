@@ -101,7 +101,7 @@ def detect_gesture(landmarks, prev_state=None):
 
     # 5. Scroll: Index & Middle UP, rest DOWN
     if (not thumb) and index and middle and (not ring) and (not pinky):
-        return {"gesture": "scroll", "data": finger_states}
+        return {"gesture": "scroll", "data": {"index": index, "middle": middle}}
 
     # Otherwise unknown
     return {"gesture": "unknown", "data": finger_states}
