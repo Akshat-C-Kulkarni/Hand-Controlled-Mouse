@@ -4,42 +4,47 @@ from pynput.mouse import Controller, Button
 
 mouse = Controller()
 
-# Smoothing factor for cursor movement (0–1)
-SMOOTHING = 0.2
+SMOOTH_ALPHA = 0.25
+LARGE_MOVE_THRESHOLD_PX = 500
 
-# Store last position for smoothing
 _last_x, _last_y = None, None
-
 
 def move_cursor(x, y, screen_w, screen_h):
     global _last_x, _last_y
 
-    target_x = int(x * screen_w)
-    target_y = int(y * screen_h)
+    x = max(0.0, min(1.0, x))
+    y = max(0.0, min(1.0, y))
 
-    # Initialize if first move
+    tx = int(x * screen_w)
+    ty = int(y * screen_h)
+
     if _last_x is None:
-        _last_x, _last_y = target_x, target_y
+        _last_x, _last_y = tx, ty
+        mouse.position = (tx, ty)
+        return
 
-    # Smooth movement
-    new_x = int(_last_x + (target_x - _last_x) * SMOOTHING)
-    new_y = int(_last_y + (target_y - _last_y) * SMOOTHING)
+    if abs(tx - _last_x) > LARGE_MOVE_THRESHOLD_PX or abs(ty - _last_y) > LARGE_MOVE_THRESHOLD_PX:
+        _last_x, _last_y = tx, ty
+        mouse.position = (tx, ty)
+        return
+
+    new_x = int(_last_x + (tx - _last_x) * SMOOTH_ALPHA)
+    new_y = int(_last_y + (ty - _last_y) * SMOOTH_ALPHA)
 
     mouse.position = (new_x, new_y)
-
     _last_x, _last_y = new_x, new_y
 
+def reset_smoothing_state():
+    global _last_x, _last_y
+    _last_x, _last_y = None, None
 
 def left_click():
     mouse.press(Button.left)
     mouse.release(Button.left)
 
-
 def right_click():
     mouse.press(Button.right)
     mouse.release(Button.right)
 
-
 def scroll_vertical(delta):
-    """delta positive → scroll up, negative → scroll down"""
     mouse.scroll(0, delta)
