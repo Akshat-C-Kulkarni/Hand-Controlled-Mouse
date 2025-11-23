@@ -39,7 +39,7 @@ hand-controlled-mouse/<br>
 ## ✋ Gestures Implemented
 
 | Gesture        | Hand Pose                                  | Action                           |<br>
-|----------------|--- ----------------------------------------|----------------------------------|<br>
+|----------------|--------------------------------------------|----------------------------------|<br>
 | **Move**       | All fingers up                             | Cursor follows pinky fingertip   |<br>
 | **Left Click** | Index finger down (others up)              | Performs a left-click            |<br>
 | **Right Click**| Ring finger down (others up)               | Performs a right-click           |<br>
