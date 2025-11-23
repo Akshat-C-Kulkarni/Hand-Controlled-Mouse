@@ -38,14 +38,15 @@ hand-controlled-mouse/<br>
 
 ## ✋ Gestures Implemented
 
-Gesture\t	Hand Pose\t	Action
-<hr>
-Move\t	All fingers up\t	Cursor follows pinky fingertip
-Left Click\t	Index finger down (others up)\t	Performs a left-click
-Right Click\t	Ring finger down (others up)\t	Performs a right-click
-Scroll Up\t	Index+middle up, others down\t	Scrolls upward
-Scroll Down\t	Same gesture, but IM below wrist\t	Scrolls downward
-None\t	All fingers down\t	Stops cursor movement
+| Gesture        | Hand Pose                                  | Action                           |<br>
+|----------------|--- ----------------------------------------|----------------------------------|<br>
+| **Move**       | All fingers up                             | Cursor follows pinky fingertip   |<br>
+| **Left Click** | Index finger down (others up)              | Performs a left-click            |<br>
+| **Right Click**| Ring finger down (others up)               | Performs a right-click           |<br>
+| **Scroll Up**  | Index + middle up, others down             | Scrolls upward                   |<br>
+| **Scroll Down**| IM below wrist (while in scroll-up pose)   | Scrolls downward                 |<br>
+| **None**       | All fingers down                           | Stops cursor movement            |<br>
+
 <hr>
 
 ## 🧩 Core Components
